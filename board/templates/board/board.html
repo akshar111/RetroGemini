@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block scripts %}
+
+    <link rel="stylesheet" href="{% static 'board/board.css' %}">
+    <link rel="stylesheet" href="{% static 'board/dragula.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+          $("#add-1").click(function(){
+            $("#input-1").show(100);
+          });
+        });
+    </script>
+
+
+{% endblock scripts %}
+
+
+{% block title %}
+Board
+{% endblock title %}
+li element on 
+{% block content %}
+
+<br>
+
+<div class="drag-container">
+  <ul>
+    <div class="row col-md-12" >
+        <div class="col-md-4">
+            <div class="card text-center mb-3"   id="board-section-1">
+		        <li class=" drag-column-on-hold">
+			        <div class="card-header">
+				        <h5 class="card-title" style="color: gray">Went Well</h5>        
+			        </div>
+                    <button class="add-button" id="add-1">+</button>
+			        <ul class="drag-inner-list card-body" id="1">
+                        {% for obj in task %}
+                        {%  if obj.status.name == 'Went Well' %}
+                            <li class="drag-item">{{ obj.name }}</li>
+                            
+                        {%  endif  %}
+                        {%  endfor  %}   
+                        <form 
+                         method="POST">
+                            {% csrf_token %}
+                             <input class=" add-input "  type="text" id="input-1"  name="name" hidden/> 
+                        </form>
+				        
+				        
+			        </ul>
+		        </li>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-center mb-3" id="board-section-2">
+		        <li class=" drag-column-in-progress">
+			        <div class="card-header">
+				        <h5 class="card-title" style="color: gray">To Imporve</h5>   
+			        </div>
+                    <button class=" add-button "id="add-2">+</button>
+			        <ul class="drag-inner-list card-body" id="2">
+				        {% for obj in task %}
+                                {%  if obj.status.name == 'To Improve' %}
+                                    <li class="drag-item">{{ obj.name }}</li>
+                                {%  endif  %}
+                            {%  endfor  %}    
+
+			        </ul>
+		        </li> 
+            </div>
+        </div>
+        
+
+        <div class="col-md-4">
+            <div class="card text-center mb-3" id="board-section-3">
+		        <li class=" drag-column-needs-review">
+			        <div class="card-header">
+				        <h5 class="card-title" style="color: gray">Action Items</h5>
+			        </div>
+                    <button class=" add-button " id="add-3">+</button>
+			        <ul class="drag-inner-list card-body" id="3">
+                        {% for obj in task %}
+                                {%  if obj.status.name == 'Action Item' %}
+                                    <li class="drag-item">{{ obj.name }}</li>
+                                {%  endif  %}
+                            {%  endfor  %} 
+			        </ul>
+		        </li>
+            </div>
+        </div>
+
+	
+    </div>
+  </ul>
+</div>
+
+
+<script src="{% static 'board/dragula.js' %}"></script>
+<script src="{% static 'board/board.js' %}"></script>
+
+
+{% endblock content %}
