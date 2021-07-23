@@ -39,13 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Our Apps
     'board',
+    'profiles',
     # 3rd Party
+    'debug_toolbar',
     'crispy_forms',
     'widget_tweaks',
     'rest_framework',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,6 +56,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+]
+
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
 ]
 
 ROOT_URLCONF = 'retro.urls'
@@ -119,6 +129,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+# AUTH
+LOGIN_URL = '/login/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -129,13 +141,16 @@ STATICFILES_DIRS = [
     BASE_DIR / 'board' / 'static',
 ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-#SMTP Configuration
+# SMTP Configuration
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
