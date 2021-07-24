@@ -25,6 +25,11 @@ ul {
   padding: 0;
 }
 
+.my-container {
+  max-width: 100%;
+  margin: 0;
+}
+
 .drag-container {
   width: 100%;
 }
